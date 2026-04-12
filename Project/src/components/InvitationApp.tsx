@@ -457,6 +457,7 @@ export default function InvitationApp() {
             alt="Background" 
             fill
             priority
+            sizes="100vw"
             className="w-full h-full object-cover opacity-80"
           />
           <div className="absolute inset-0 bg-black/10" />
@@ -531,6 +532,7 @@ export default function InvitationApp() {
             src="/assets/savethedate_bg.png" 
             alt="Background" 
             fill
+            sizes="100vw"
             className="w-full h-full object-cover opacity-50"
           />
         </div>
@@ -575,9 +577,10 @@ export default function InvitationApp() {
         <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto z-20">
           <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-white/50 h-[500px]">
             <Image 
-              src="/assets/1.png" 
+              src="/assets/celebration.png" 
               alt="Grand Celebration" 
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover hover:scale-110 transition-transform duration-1000"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -638,6 +641,7 @@ export default function InvitationApp() {
               alt="Invitation Card" 
               width={400}
               height={600}
+              priority
               className="w-full h-auto"
             />
           </div>
