@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sage: #8A9A5B;
+  --color-sage-light: #B2AC88;
+  --color-gold: #C5A059;
+  --color-cream: #FAF9F6;
+  --color-beige: #F5F5DC;
+  --color-turq: #40E0D0;
+  
+  --font-serif: var(--font-playfair);
+  --font-script: var(--font-dancing);
+  --font-sans: var(--font-inter);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-sway: sway 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+:root {
+  --background: #FAF9F6;
+  --foreground: #2C3E50;
+  --sage: #8A9A5B;
+  --gold: #C5A059;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+@layer utilities {
+  .border-frame {
+    @apply border-[16px] md:border-[24px] border-white/30 fixed inset-0 pointer-events-none z-[100] transition-all;
+  }
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gold-gradient {
+  background: linear-gradient(45deg, #C5A059, #F1D4AF, #C5A059);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glitter 3s ease-in-out infinite;
+}
+
+@layer utilities {
+  .cursor-peacock {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%238A9A5B' opacity='0.5'><path d='M12 22C12 22 17 17 17 12C17 7 12 2 12 2C12 2 7 7 7 12C7 17 12 22 12 22Z'/></svg>"), auto;
+  }
+
+  .animate-note {
+    animation: note 1s ease-in-out infinite;
+  }
+}
+
+@keyframes note {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-3px) rotate(5deg); }
+}
+
+@keyframes glitter {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; filter: brightness(1.2); }
+}
