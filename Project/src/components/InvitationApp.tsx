@@ -852,12 +852,12 @@ export default function InvitationApp() {
         <div className="relative z-10 max-w-2xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}>
             {/* Tilt card */}
-            <motion.div className="relative w-52 mx-auto mb-10 rounded-2xl overflow-hidden shadow-2xl"
+            <motion.div className="relative w-62 mx-auto mb-10 rounded-2xl overflow-hidden shadow-2xl"
               whileHover={{ rotateY: 8, rotateX: -4, scale: 1.04, boxShadow: "0 30px 80px rgba(168,80,112,0.3)" }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               style={{ border: `4px solid rgba(255,255,255,0.8)`, transformStyle: "preserve-3d", perspective: 600 }}
             >
-              <Image src="/assets/2.png" alt="Invitation card" width={300} height={450} className="w-full h-auto" />
+              <Image src="/assets/2.png" alt="Invitation card" width={450} height={500} className="w-full h-auto" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.1), transparent)" }} />
             </motion.div>
 
