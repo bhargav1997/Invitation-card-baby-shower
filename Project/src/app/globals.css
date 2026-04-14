@@ -19,6 +19,12 @@
   --animate-float: float 6s ease-in-out infinite;
   --animate-sway: sway 20s ease-in-out infinite;
   --animate-shimmer: shimmer 3s ease-in-out infinite;
+  --animate-shine: shine 1.5s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 @keyframes float {
