@@ -627,6 +627,24 @@ export default function InvitationApp() {
             <div className="h-px w-10 opacity-50" style={{ background: C.champagne }} />
           </motion.div>
 
+          {/* Feature Image */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 1.5, ease: "easeOut" }}
+            className="mb-8 relative w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full overflow-hidden shadow-[0_0_50px_rgba(201,148,58,0.3)] border-4 border-white/20"
+          >
+            <Image 
+              src="/assets/krishna_radha.png" 
+              alt="Bal Krishna and Radha" 
+              fill 
+              className="object-cover"
+              sizes="(max-width: 768px) 256px, 320px"
+            />
+            {/* Soft glow behind */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+          </motion.div>
+
           {/* Staggered headline words */}
           <h1 className="block leading-none mb-4" style={{ fontFamily: "var(--font-dancing)", fontSize: "clamp(4rem, 12vw, 8rem)" }}>
             {heroWords.map((word, wi) => (
