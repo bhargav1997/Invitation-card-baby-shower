@@ -33,6 +33,7 @@ const C = {
    deepRose: "#A85070",
    gold: "#C9943A",
    champagne: "#F0D9A8",
+   orange: "#ff6900",
    ivory: "#FDF8F3",
    ivoryDark: "#F5EDE2",
    mauve: "#8B5E6A",
@@ -114,7 +115,7 @@ const SectionNav = () => {
 // Wave Divider
 // ─────────────────────────────────────────
 const WaveDivider = ({ from, to, flip = false }: { from: string; to: string; flip?: boolean }) => (
-   <div className={cn("relative w-full overflow-hidden leading-none -mt-px", flip && "rotate-180")}>
+   <div className={cn("relative w-full overflow-hidden leading-none -mt-px", flip && "rotate-180")} style={{ background: from }}>
       <svg viewBox='0 0 1440 80' preserveAspectRatio='none' className='w-full h-16 md:h-20' style={{ display: "block" }}>
          <path d='M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1380,20 1440,40 L1440,80 L0,80 Z' fill={to} />
       </svg>
@@ -480,7 +481,7 @@ const FloralDivider = () => (
 // ─────────────────────────────────────────
 // Info Card
 // ─────────────────────────────────────────
-const InfoCard = ({ icon, title, sub, delay = 0 }: { icon: React.ReactNode; title: string; sub: string; delay?: number }) => (
+const InfoCard = ({ icon, title, sub, delay = 0 }: { icon: React.ReactNode; title: string; sub?: string; delay?: number }) => (
    <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -495,9 +496,11 @@ const InfoCard = ({ icon, title, sub, delay = 0 }: { icon: React.ReactNode; titl
       <p className='text-xl font-semibold' style={{ fontFamily: "var(--font-playfair)", color: C.charcoal }}>
          {title}
       </p>
-      <p className='text-sm uppercase tracking-widest opacity-60' style={{ color: C.mauve }}>
-         {sub}
-      </p>
+      {sub && (
+         <p className='text-sm uppercase tracking-widest opacity-60' style={{ color: C.mauve }}>
+            {sub}
+         </p>
+      )}
    </motion.div>
 );
 
@@ -602,7 +605,7 @@ export default function InvitationApp() {
    const share = () => {
       if (navigator.share) {
          navigator
-            .share({ title: "Baby Shower — Vaibhav & Khyati", text: "You're invited! 🌸", url: window.location.href })
+            .share({ title: "Baby Shower — Khyati & Vaibhav", text: "You're invited! 🌸", url: window.location.href })
             .catch(() => {});
       } else {
          navigator.clipboard.writeText(window.location.href);
@@ -673,20 +676,42 @@ export default function InvitationApp() {
 
             <motion.div
                style={{ opacity: heroOpacity, scale: heroScale }}
-               className='relative z-20 text-center px-6 py-24 max-w-3xl mx-auto'>
+               className='relative z-20 text-center px-6 py-12 max-w-3xl mx-auto'>
+               {/* Top Invocation */}
+
+               <motion.div
+                  initial={{ opacity: 0, y: -12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 1 }}
+                  className='mb-8'>
+                  <span
+                     className='text-lg md:text-xl font-semibold uppercase tracking-[0.25em]'
+                     style={{
+                        color: "#7A1E1E",
+                        fontFamily: "var(--font-playfair)",
+                        textShadow: "0 2px 6px rgba(0,0,0,0.15)",
+                        letterSpacing: "0.18em",
+                     }}>
+                     || Jay Swaminarayan ||
+                  </span>
+
+                  {/* subtle divider line */}
+                  <div className='mt-4 w-16 h-[1px] mx-auto bg-[#7A1E1E]/40'></div>
+               </motion.div>
+
                {/* Eyebrow */}
                <motion.div
                   initial={{ opacity: 0, y: -12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 1 }}
                   className='flex items-center justify-center gap-3 mb-8'>
-                  <div className='h-px w-10 opacity-50' style={{ background: C.champagne }} />
-                  <Sparkles size={14} style={{ color: C.champagne }} />
-                  <span className='text-xs uppercase tracking-[0.35em] font-semibold' style={{ color: C.champagne }}>
+                  <div className='h-px w-10 opacity-50' style={{ background: "#fff" }} />
+                  <Sparkles size={14} style={{ color: "#fff" }} />
+                  <span className='text-xs uppercase tracking-[0.35em] font-bold' style={{ color: "#fff" }}>
                      You&apos;re warmly invited
                   </span>
-                  <Sparkles size={14} style={{ color: C.champagne }} />
-                  <div className='h-px w-10 opacity-50' style={{ background: C.champagne }} />
+                  <Sparkles size={14} style={{ color: "#fff" }} />
+                  <div className='h-px w-10 opacity-50' style={{ background: "#fff" }} />
                </motion.div>
 
                {/* Feature Image */}
@@ -701,6 +726,7 @@ export default function InvitationApp() {
                      fill
                      className='object-cover'
                      sizes='(max-width: 768px) 256px, 320px'
+                     loading='eager'
                   />
                   {/* Soft glow behind */}
                   <div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none' />
@@ -736,7 +762,7 @@ export default function InvitationApp() {
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                      }}>
-                     Vaibhav &amp; Khyati
+                     Khyati &amp; Vaibhav
                   </h2>
                   <div className='h-px flex-1 max-w-[60px] opacity-40' style={{ background: "#fff" }} />
                </motion.div>
@@ -807,7 +833,7 @@ export default function InvitationApp() {
                         &ldquo;
                      </span>
                      <p className='text-lg md:text-xl leading-relaxed' style={{ color: C.mauve }}>
-                        With hearts overflowing with joy, Vaibhav &amp; Khyati invite you to be part of this beautiful chapter — a baby
+                        With hearts overflowing with joy, Khyati &amp; Vaibhav invite you to be part of this beautiful chapter — a baby
                         shower filled with love, laughter, and warmth that will last a lifetime.
                      </p>
                      <span
@@ -851,7 +877,7 @@ export default function InvitationApp() {
                </motion.div>
 
                <div className='grid md:grid-cols-3 gap-6 items-center'>
-                  <InfoCard icon={<Calendar size={26} style={{ color: C.rose }} />} title='June 21, 2026' sub='Sunday' delay={0} />
+                  <InfoCard icon={<Calendar size={26} style={{ color: C.rose }} />} title='June 21, 2026' delay={0} />
                   <motion.div
                      initial={{ opacity: 0, scale: 0.85 }}
                      whileInView={{ opacity: 1, scale: 1 }}
@@ -878,12 +904,12 @@ export default function InvitationApp() {
             </div>
          </section>
 
-         <WaveDivider from='#FFF0F3' to={C.ivoryDark} />
+         {/* <WaveDivider from='#FFF0F3' to={C.ivoryDark} /> */}
 
          {/* ══════════════════════════════════════
           WHAT TO EXPECT
       ══════════════════════════════════════ */}
-         <section id='what-to-expect' className='relative py-24 px-6 overflow-hidden' style={{ background: C.ivoryDark }}>
+         {/* <section id='what-to-expect' className='relative py-24 px-6 overflow-hidden' style={{ background: C.ivoryDark }}>
             <div className='max-w-5xl mx-auto'>
                <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -929,9 +955,9 @@ export default function InvitationApp() {
                   />
                </div>
             </div>
-         </section>
+         </section> */}
 
-         <WaveDivider from={C.ivoryDark} to={C.ivory} />
+         <WaveDivider from='#FFF0F3' to={C.ivory} />
 
          {/* ══════════════════════════════════════
           VENUE
@@ -1058,7 +1084,7 @@ export default function InvitationApp() {
                      world.
                   </p>
                   <p className='mb-10 italic text-sm opacity-70' style={{ color: C.mauve }}>
-                     Please RSVP by <strong>June 14, 2026</strong> so we can prepare for you.
+                     Please let us know if you'll be attending, so we can make the best preparations for you.
                   </p>
 
                   <motion.button
@@ -1110,7 +1136,7 @@ export default function InvitationApp() {
                   transition={{ duration: 3, repeat: Infinity }}
                   className='text-4xl mb-2'
                   style={{ fontFamily: "var(--font-dancing)", color: C.champagne }}>
-                  Vaibhav &amp; Khyati
+                  Khyati &amp; Vaibhav
                </motion.p>
                <div className='flex items-center justify-center gap-3 mt-2'>
                   <div className='h-px w-10 opacity-20' style={{ background: C.champagne }} />
