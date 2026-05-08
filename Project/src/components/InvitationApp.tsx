@@ -780,7 +780,7 @@ export default function InvitationApp() {
             </motion.div>
 
             <motion.div
-               className='absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer'
+               className='absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer'
                onClick={() => document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" })}
                animate={{ y: [0, 10, 0] }}
                transition={{ duration: 2.5, repeat: Infinity }}>
