@@ -22,6 +22,7 @@ import {
    Video,
    Volume2,
    VolumeX,
+   Leaf,
 } from "lucide-react";
 import Image from "next/image";
 import confetti from "canvas-confetti";
@@ -47,11 +48,23 @@ const C = {
 
 // Uncomment one of the shape arrays below to test different SVG shapes! (Works best with OPTION 1 below)
 
-// ORIGINAL: Flower Petals
+// ORIGINAL: Flower Petals (commented out)
+// const PETAL_SHAPES = [
+//    "M10,0 C14,3 16,8 12,14 C8,20 2,18 0,12 C-2,6 4,0 10,0",
+//    "M8,0 C14,2 18,10 14,16 C10,22 2,20 0,14 C-2,8 2,0 8,0",
+//    "M12,0 C18,4 20,12 16,18 C12,24 4,22 2,16 C0,10 6,0 12,0",
+// ];
+
+// ACTIVE: Natural Leaves
 const PETAL_SHAPES = [
-   "M10,0 C14,3 16,8 12,14 C8,20 2,18 0,12 C-2,6 4,0 10,0",
-   "M8,0 C14,2 18,10 14,16 C10,22 2,20 0,14 C-2,8 2,0 8,0",
-   "M12,0 C18,4 20,12 16,18 C12,24 4,22 2,16 C0,10 6,0 12,0",
+   // Simple oval leaf with a tip
+   "M10,0 C18,2 22,10 18,18 C14,26 2,26 0,18 C-2,10 2,-2 10,0Z",
+   // Pointed elongated leaf
+   "M8,0 C16,4 18,14 12,22 C6,30 -2,24 0,14 C2,4 0,-4 8,0Z",
+   // Broad rounded leaf
+   "M12,0 C22,4 24,16 18,22 C12,28 2,24 0,16 C-2,8 4,0 12,0Z",
+   // Small teardrop leaf
+   "M6,0 C12,2 14,10 10,16 C6,22 -2,18 0,10 C2,2 0,-2 6,0Z",
 ];
 
 // ALTERNATIVE: Stars
@@ -702,14 +715,14 @@ export default function InvitationApp() {
 
    useEffect(() => {
       setMounted(true);
-      setPetals(
-         [...Array(20)].map((_, i) => ({
+       setPetals(
+         [...Array(8)].map((_, i) => ({
             left: `${Math.random() * 100}%`,
-            duration: 14 + Math.random() * 14,
-            delay: Math.random() * 25,
+            duration: 18 + Math.random() * 14,
+            delay: Math.random() * 30,
             shape: i % PETAL_SHAPES.length,
-            size: 10 + Math.random() * 14,
-            color: [C.blush, C.champagne, "#FFC0CB", "#FFCDD2", "#FFB7C5"][i % 5],
+            size: 6 + Math.random() * 6,
+            color: ["#5A8C52", "#7AB068", "#4A7A42", "#8DB87A", "#3D6B36"][i % 5],
          })),
       );
    }, []);
@@ -749,10 +762,14 @@ export default function InvitationApp() {
                        Make sure to comment out the others.
                      */}
 
-                     {/* OPTION 1: Original Flower Petals */}
-                     <svg width={p.size} height={p.size * 1.4} viewBox='0 0 16 22' fill={p.color} opacity='0.85'>
-                        <path d={PETAL_SHAPES[p.shape]} />
-                     </svg>
+                     {/* OPTION 1: Green Leaves (Lucide Leaf icon) */}
+                     <Leaf
+                        size={p.size * 1.6}
+                        color={p.color}
+                        fill={p.color}
+                        opacity={0.8}
+                        strokeWidth={0.5}
+                     />
 
                      {/* OPTION 2: Emojis (Teddy Bears) */}
                      {/* <div style={{ fontSize: `${p.size * 1.5}px` }}>🧸</div> */}
