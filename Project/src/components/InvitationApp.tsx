@@ -31,17 +31,17 @@ import { cn } from "@/lib/utils";
 // Palette
 // ─────────────────────────────────────────
 const C = {
-   blush: "#F2B5C0",
-   rose: "#D4778A",
-   deepRose: "#A85070",
-   gold: "#C9943A",
-   champagne: "#F0D9A8",
-   orange: "#ff6900",
+   blush: "#F8CACA",     // Soft peach-pink matching the petals
+   rose: "#E5989B",      // Warm rosy pink matching the darker petals
+   deepRose: "#A6515A",  // Rich earthy rose for the script text
+   gold: "#C99A5C",      // Warm lantern gold
+   champagne: "#F4E3C5", // Soft lantern glow
+   orange: "#E27B58",    // Warm terracotta
    ivory: "#FDF8F3",
    ivoryDark: "#F5EDE2",
-   mauve: "#8B5E6A",
-   sage: "#7A9E7E",
-   charcoal: "#3D2B32",
+   mauve: "#8B7D72",     // Warm taupe for subtext
+   sage: "#798A70",      // Soft leaf green
+   charcoal: "#3B332C",  // Deep earthy brown for main headings
    white: "#FFFFFF",
 };
 
@@ -612,7 +612,7 @@ export default function InvitationApp() {
 
       const autoScroll = () => {
          animationFrameId = requestAnimationFrame(autoScroll);
-         
+
          // Stop if we hit bottom
          if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
             return;
@@ -642,12 +642,12 @@ export default function InvitationApp() {
       const handleInteraction = () => {
          lastInteractionTime.current = Date.now();
       };
-      
+
       const handleTouchStart = () => {
          isTouching.current = true;
          lastInteractionTime.current = Date.now();
       };
-      
+
       const handleTouchEnd = () => {
          isTouching.current = false;
          lastInteractionTime.current = Date.now();
@@ -773,7 +773,7 @@ export default function InvitationApp() {
          </div>
 
          {/* Background Music */}
-         <audio ref={audioRef} src='/assets/little_krishna_bg_music.mp3' loop />
+         <audio ref={audioRef} src='/assets/little_krishna_bg_music.mp3' loop muted={false}/>
 
          <motion.button
             aria-label='Toggle music'
@@ -933,125 +933,218 @@ export default function InvitationApp() {
             </motion.div>
          </section>
 
-         <WaveDivider from='transparent' to={C.ivory} />
+         {/* <WaveDivider from='transparent' to={C.ivory} /> */}
 
-         {/* ══════════════════════════════════════
+         <div
+            className='relative w-full'
+            style={{
+               backgroundImage: "url('/assets/hero_bg_new_2.png')",
+               backgroundSize: "cover",
+               backgroundPosition: "center top",
+               backgroundAttachment: "fixed",
+            }}>
+            {/* Light overlay to brighten the background image so text is readable */}
+            <div 
+               className='absolute inset-0 pointer-events-none' 
+               style={{ background: "rgba(255,255,255,0.75)" }} 
+            />
+
+            {/* ══════════════════════════════════════
           WELCOME
       ══════════════════════════════════════ */}
-         <section id='welcome' className='relative py-24 px-6 overflow-hidden' style={{ background: C.ivory }}>
-            <div
-               className='absolute top-0 left-0 w-64 h-64 opacity-15 pointer-events-none'
-               style={{ background: `radial-gradient(circle at top left, ${C.blush}, transparent 70%)` }}
-            />
-            <div
-               className='absolute bottom-0 right-0 w-64 h-64 opacity-15 pointer-events-none'
-               style={{ background: `radial-gradient(circle at bottom right, ${C.champagne}, transparent 70%)` }}
-            />
+            <section id='welcome' className='relative py-24 px-6 overflow-hidden' style={{ background: "transparent" }}>
+               <div
+                  className='absolute top-0 left-0 w-64 h-64 opacity-15 pointer-events-none'
+                  style={{ background: `radial-gradient(circle at top left, ${C.blush}, transparent 70%)` }}
+               />
+               <div
+                  className='absolute bottom-0 right-0 w-64 h-64 opacity-15 pointer-events-none'
+                  style={{ background: `radial-gradient(circle at bottom right, ${C.champagne}, transparent 70%)` }}
+               />
 
-            <div className='max-w-2xl mx-auto text-center relative z-10'>
-               <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.9 }}>
+               <div className='max-w-2xl mx-auto text-center relative z-10'>
                   <motion.div
-                     animate={{ scale: [1, 1.12, 1] }}
-                     transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                     className='inline-block mb-6'>
-                     <Heart size={32} style={{ color: C.rose }} fill={C.rose} className='opacity-85' />
-                  </motion.div>
-                  <h2 className='text-5xl md:text-6xl mb-6 leading-tight' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
-                     A New Little Star
-                     <br />
-                     is on the Way!
-                  </h2>
-                  <FloralDivider />
+                     initial={{ opacity: 0, y: 30 }}
+                     whileInView={{ opacity: 1, y: 0 }}
+                     viewport={{ once: true }}
+                     transition={{ duration: 0.9 }}>
+                     <motion.div
+                        animate={{ scale: [1, 1.12, 1] }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                        className='inline-block mb-6'>
+                        <Heart size={32} style={{ color: C.rose }} fill={C.rose} className='opacity-85' />
+                     </motion.div>
+                     <h2
+                        className='text-5xl md:text-6xl mb-6 leading-tight'
+                        style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
+                        A New Little Star
+                        <br />
+                        is on the Way!
+                     </h2>
+                     <FloralDivider />
 
-                  {/* Pull-quote block */}
-                  <div className='relative mt-10 mb-6 px-6 md:px-10'>
-                     <span
-                        className='absolute -top-4 left-0 text-7xl leading-none opacity-15 select-none'
-                        style={{ fontFamily: "Georgia,serif", color: C.deepRose }}>
-                        &ldquo;
-                     </span>
-                     <p className='text-lg md:text-xl leading-relaxed' style={{ color: C.mauve }}>
-                        With hearts overflowing with joy, Khyati &amp; Vaibhav invite you to be part of this beautiful chapter — a baby
-                        shower filled with love, laughter, and warmth that will last a lifetime.
+                     {/* Pull-quote block */}
+                     <div className='relative mt-10 mb-6 px-6 md:px-10'>
+                        <span
+                           className='absolute -top-4 left-0 text-7xl leading-none opacity-15 select-none'
+                           style={{ fontFamily: "Georgia,serif", color: C.deepRose }}>
+                           &ldquo;
+                        </span>
+                        <p className='text-lg md:text-xl leading-relaxed' style={{ color: C.mauve }}>
+                           With hearts overflowing with joy, Khyati &amp; Vaibhav invite you to be part of this beautiful chapter — a baby
+                           shower filled with love, laughter, and warmth that will last a lifetime.
+                        </p>
+                        <span
+                           className='absolute -bottom-6 right-0 text-7xl leading-none opacity-15 select-none'
+                           style={{ fontFamily: "Georgia,serif", color: C.deepRose }}>
+                           &rdquo;
+                        </span>
+                     </div>
+
+                     <p className='mt-10 text-base leading-relaxed italic opacity-75' style={{ color: C.mauve }}>
+                        Your presence would make this day truly magical. 🌸
                      </p>
-                     <span
-                        className='absolute -bottom-6 right-0 text-7xl leading-none opacity-15 select-none'
-                        style={{ fontFamily: "Georgia,serif", color: C.deepRose }}>
-                        &rdquo;
-                     </span>
-                  </div>
+                  </motion.div>
+               </div>
+            </section>
 
-                  <p className='mt-10 text-base leading-relaxed italic opacity-75' style={{ color: C.mauve }}>
-                     Your presence would make this day truly magical. 🌸
-                  </p>
-               </motion.div>
-            </div>
-         </section>
+            {/* <WaveDivider from={C.ivory} to='#FFF0F3' /> */}
 
-         <WaveDivider from={C.ivory} to='#FFF0F3' />
-
-         {/* ══════════════════════════════════════
+            {/* ══════════════════════════════════════
           SAVE THE DATE
       ══════════════════════════════════════ */}
-         <section id='save-the-date' className='relative py-24 px-6 overflow-hidden' style={{ background: "#FFF0F3" }}>
-            <div
-               className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none'
-               style={{ background: `radial-gradient(circle, ${C.blush}20, transparent 70%)` }}
-            />
+            <section id='save-the-date' className='relative py-24 px-6 overflow-hidden' style={{ background: "transparent" }}>
+               <div
+                  className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none'
+                  style={{ background: `radial-gradient(circle, ${C.blush}20, transparent 70%)` }}
+               />
 
-            <div className='max-w-5xl mx-auto relative z-10'>
-               <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className='text-center mb-14'>
-                  <span className='text-xs uppercase tracking-[0.3em] font-semibold' style={{ color: C.rose }}>
-                     Mark your calendar
-                  </span>
-                  <h2 className='text-5xl md:text-6xl mt-3' style={{ fontFamily: "var(--font-playfair)", color: C.charcoal }}>
-                     Save the Date
-                  </h2>
-                  <FloralDivider />
-               </motion.div>
-
-               <div className='grid md:grid-cols-3 gap-6 items-center'>
-                  <InfoCard icon={<Calendar size={26} style={{ color: C.rose }} />} title='June 21, 2026' delay={0} />
+               <div className='max-w-5xl mx-auto relative z-10'>
                   <motion.div
-                     initial={{ opacity: 0, scale: 0.85 }}
-                     whileInView={{ opacity: 1, scale: 1 }}
+                     initial={{ opacity: 0, y: 30 }}
+                     whileInView={{ opacity: 1, y: 0 }}
                      viewport={{ once: true }}
-                     transition={{ duration: 0.9, delay: 0.2 }}
-                     className='flex flex-col items-center justify-center py-10'>
-                     <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}>
-                        <Baby size={58} style={{ color: C.rose }} />
-                     </motion.div>
-                     <p className='mt-4 text-6xl' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
-                        Sunday
-                     </p>
-                     <p className='mt-2 text-xs uppercase tracking-widest opacity-60' style={{ color: C.mauve }}>
-                        A day to remember
-                     </p>
+                     className='text-center mb-14'>
+                     <span className='text-xs uppercase tracking-[0.3em] font-semibold' style={{ color: C.rose }}>
+                        Mark your calendar
+                     </span>
+                     <h2 className='text-5xl md:text-6xl mt-3' style={{ fontFamily: "var(--font-playfair)", color: C.charcoal }}>
+                        Save the Date
+                     </h2>
+                     <FloralDivider />
                   </motion.div>
-                  <InfoCard
-                     icon={<Clock size={26} style={{ color: C.rose }} />}
-                     title='4:00 PM onwards'
-                     sub='Regina Time (CST)'
-                     delay={0.1}
-                  />
+
+                  <div className='grid md:grid-cols-3 gap-8 md:gap-4 items-center justify-center mt-8'>
+                     {/* DATE */}
+                     <motion.div
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.9, delay: 0 }}
+                        className='flex flex-col items-center justify-center py-6 md:py-10'>
+                        <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+                           <Calendar size={52} style={{ color: C.rose }} strokeWidth={1.5} />
+                        </motion.div>
+                        <p className='mt-5 text-4xl md:text-5xl text-center' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
+                           June 21, 2026
+                        </p>
+                        <p className='mt-3 text-xs uppercase tracking-widest opacity-60' style={{ color: C.mauve }}>
+                           Save the Date
+                        </p>
+                     </motion.div>
+
+                     {/* DAY */}
+                     <motion.div
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.9, delay: 0.2 }}
+                        className='flex flex-col items-center justify-center py-6 md:py-10 relative'>
+                        {/* Subtle vertical dividers for desktop */}
+                        <div className='hidden md:block absolute -left-2 top-1/2 -translate-y-1/2 w-px h-32' style={{ background: `linear-gradient(to bottom, transparent, ${C.blush}, transparent)` }} />
+                        <div className='hidden md:block absolute -right-2 top-1/2 -translate-y-1/2 w-px h-32' style={{ background: `linear-gradient(to bottom, transparent, ${C.blush}, transparent)` }} />
+                        
+                        <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}>
+                           <Baby size={56} style={{ color: C.rose }} strokeWidth={1.5} />
+                        </motion.div>
+                        <p className='mt-5 text-5xl md:text-6xl text-center' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
+                           Sunday
+                        </p>
+                        <p className='mt-3 text-xs uppercase tracking-widest opacity-60 text-center' style={{ color: C.mauve }}>
+                           A day to remember
+                        </p>
+                     </motion.div>
+
+                     {/* TIME */}
+                     <motion.div
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.9, delay: 0.4 }}
+                        className='flex flex-col items-center justify-center py-6 md:py-10'>
+                        <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, delay: 1, ease: "easeInOut" }}>
+                           <Clock size={52} style={{ color: C.rose }} strokeWidth={1.5} />
+                        </motion.div>
+                        <p className='mt-5 text-4xl md:text-5xl text-center' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
+                           4:00 PM <span className="text-3xl md:text-4xl">onwards</span>
+                        </p>
+                        <p className='mt-3 text-xs uppercase tracking-widest opacity-60 text-center' style={{ color: C.mauve }}>
+                           Regina Time (CST)
+                        </p>
+                     </motion.div>
+                  </div>
+
+                  {/* Venue Details Merged into Save the Date */}
+                  <motion.div
+                     initial={{ opacity: 0, y: 30 }}
+                     whileInView={{ opacity: 1, y: 0 }}
+                     viewport={{ once: true }}
+                     transition={{ duration: 1 }}
+                     className='mt-20 text-center flex flex-col items-center'>
+                     <div className='flex items-center justify-center gap-2 mb-4'>
+                        <MapPin size={18} style={{ color: C.rose }} />
+                        <span className='text-xs uppercase tracking-[0.25em] font-semibold' style={{ color: C.rose }}>
+                           Location Details
+                        </span>
+                     </div>
+                     <h2
+                        className='text-4xl md:text-5xl leading-tight mb-6'
+                        style={{ fontFamily: "var(--font-playfair)", color: C.charcoal }}>
+                        South Leisure
+                        <br />
+                        <span style={{ color: C.rose }}>Neighbourhood Centre</span>
+                     </h2>
+                     <FloralDivider />
+                     <p className='mt-6 mb-4 text-lg leading-relaxed' style={{ color: C.mauve }}>
+                        170 Sunset Dr, Regina, SK S4S 2X5
+                        <br />
+                        Saskatchewan, Canada
+                     </p>
+                     <p className='text-sm mb-8 leading-relaxed max-w-xl mx-auto' style={{ color: `${C.mauve}99` }}>
+                        Come fill the room with your laughter and warm wishes. The venue is easily accessible and parking is available
+                        on-site. We look forward to welcoming you!
+                     </p>
+                     <motion.a
+                        whileHover={{ scale: 1.04, boxShadow: "0 14px 40px rgba(212,119,138,0.35)" }}
+                        whileTap={{ scale: 0.97 }}
+                        href='https://www.google.com/maps/dir/?api=1&destination=170+Sunset+Dr+Regina+SK+S4S+2X5'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        id='maps-link'
+                        className='inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold shadow-lg transition-all'
+                        style={{ background: `linear-gradient(135deg, ${C.rose}, ${C.deepRose})` }}>
+                        Open in Google Maps <Send size={16} className='rotate-45' />
+                     </motion.a>
+                  </motion.div>
                </div>
-            </div>
-         </section>
+            </section>
 
-         {/* <WaveDivider from='#FFF0F3' to={C.ivoryDark} /> */}
+            {/* <WaveDivider from='#FFF0F3' to={C.ivoryDark} /> */}
 
-         {/* ══════════════════════════════════════
+            {/* ══════════════════════════════════════
           WHAT TO EXPECT
       ══════════════════════════════════════ */}
-         {/* <section id='what-to-expect' className='relative py-24 px-6 overflow-hidden' style={{ background: C.ivoryDark }}>
+            {/* <section id='what-to-expect' className='relative py-24 px-6 overflow-hidden' style={{ background: C.ivoryDark }}>
             <div className='max-w-5xl mx-auto'>
                <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -1099,197 +1192,126 @@ export default function InvitationApp() {
             </div>
          </section> */}
 
-         <WaveDivider from='#FFF0F3' to={C.ivory} />
 
-         {/* ══════════════════════════════════════
-          VENUE
-      ══════════════════════════════════════ */}
-         <section id='venue' className='relative py-24 px-6 overflow-hidden' style={{ background: C.ivory }}>
-            <div className='max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center'>
-               <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1 }}
-                  className='relative rounded-[2.5rem] overflow-hidden shadow-2xl'
-                  style={{ height: 480, border: `6px solid rgba(255,255,255,0.8)` }}>
-                  <Image
-                     src='/assets/celebration.png'
-                     alt='South Leisure Neighbourhood Centre'
-                     fill
-                     sizes='(max-width: 768px) 100vw, 50vw'
-                     className='object-cover transition-transform duration-1000 hover:scale-105'
-                  />
-                  <div
-                     className='absolute inset-0'
-                     style={{ background: "linear-gradient(to top, rgba(61,43,50,0.65) 0%, transparent 55%)" }}
-                  />
-                  <div className='absolute bottom-8 left-8 text-white'>
-                     <p className='text-xs uppercase tracking-widest opacity-70 mb-1'>Venue</p>
-                     <p className='text-2xl' style={{ fontFamily: "var(--font-playfair)" }}>
-                        South Leisure Centre
-                     </p>
-                  </div>
-               </motion.div>
 
-               <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1 }}>
-                  <div className='flex items-center gap-2 mb-4'>
-                     <MapPin size={18} style={{ color: C.rose }} />
-                     <span className='text-xs uppercase tracking-[0.25em] font-semibold' style={{ color: C.rose }}>
-                        Location Details
-                     </span>
-                  </div>
-                  <h2 className='text-4xl md:text-5xl leading-tight mb-6' style={{ fontFamily: "var(--font-playfair)", color: C.charcoal }}>
-                     South Leisure
-                     <br />
-                     <span style={{ color: C.rose }}>Neighbourhood Centre</span>
-                  </h2>
-                  <FloralDivider />
-                  <p className='mt-6 mb-4 text-lg leading-relaxed' style={{ color: C.mauve }}>
-                     170 Sunset Dr, Regina, SK S4S 2X5
-                     <br />
-                     Saskatchewan, Canada
-                  </p>
-                  <p className='text-sm mb-8 leading-relaxed' style={{ color: `${C.mauve}99` }}>
-                     Come fill the room with your laughter and warm wishes. The venue is easily accessible and parking is available on-site.
-                     We look forward to welcoming you!
-                  </p>
-                  <motion.a
-                     whileHover={{ scale: 1.04, boxShadow: "0 14px 40px rgba(212,119,138,0.35)" }}
-                     whileTap={{ scale: 0.97 }}
-                     href='https://www.google.com/maps/dir/?api=1&destination=170+Sunset+Dr+Regina+SK+S4S+2X5'
-                     target='_blank'
-                     rel='noopener noreferrer'
-                     id='maps-link'
-                     className='inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold shadow-lg transition-all'
-                     style={{ background: `linear-gradient(135deg, ${C.rose}, ${C.deepRose})` }}>
-                     Open in Google Maps <Send size={16} className='rotate-45' />
-                  </motion.a>
-               </motion.div>
-            </div>
-         </section>
+            {/* <WaveDivider from={C.ivory} to='#FFF0F3' /> */}
 
-         <WaveDivider from={C.ivory} to='#FFF0F3' />
-
-         {/* ══════════════════════════════════════
+            {/* ══════════════════════════════════════
           RSVP
       ══════════════════════════════════════ */}
-         <section id='rsvp' className='relative py-32 px-6 text-center overflow-hidden' style={{ background: "#FFF0F3" }}>
-            {/* Pulsing rings */}
-            {[...Array(3)].map((_, i) => (
-               <motion.div
-                  key={i}
-                  className='absolute rounded-full pointer-events-none'
-                  animate={{ scale: [1, 1.15, 1], opacity: [0.05, 0.1, 0.05] }}
-                  transition={{ duration: 5 + i * 2, repeat: Infinity, delay: i * 1.5 }}
-                  style={{
-                     width: 300 + i * 160,
-                     height: 300 + i * 160,
-                     top: "50%",
-                     left: "50%",
-                     transform: "translate(-50%,-50%)",
-                     border: `1.5px solid ${C.rose}`,
-                  }}
-               />
-            ))}
-
-            <div className='relative z-10 max-w-2xl mx-auto'>
-               <motion.div
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.9 }}>
-                  {/* Tilt card */}
+            <section id='rsvp' className='relative py-32 px-6 text-center overflow-hidden' style={{ background: "transparent" }}>
+               {/* Pulsing rings */}
+               {[...Array(3)].map((_, i) => (
                   <motion.div
-                     className='relative w-62 mx-auto mb-10 rounded-2xl overflow-hidden shadow-2xl'
-                     whileHover={{ rotateY: 8, rotateX: -4, scale: 1.04, boxShadow: "0 30px 80px rgba(168,80,112,0.3)" }}
-                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                     style={{ border: `4px solid rgba(255,255,255,0.8)`, transformStyle: "preserve-3d", perspective: 600 }}>
-                     <Image src='/assets/2.png' alt='Invitation card' width={450} height={500} className='w-full h-auto' />
-                     <div
-                        className='absolute inset-0'
-                        style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.1), transparent)" }}
-                     />
-                  </motion.div>
+                     key={i}
+                     className='absolute rounded-full pointer-events-none'
+                     animate={{ scale: [1, 1.15, 1], opacity: [0.05, 0.1, 0.05] }}
+                     transition={{ duration: 5 + i * 2, repeat: Infinity, delay: i * 1.5 }}
+                     style={{
+                        width: 300 + i * 160,
+                        height: 300 + i * 160,
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%,-50%)",
+                        border: `1.5px solid ${C.rose}`,
+                     }}
+                  />
+               ))}
 
-                  <h2 className='text-5xl md:text-6xl mb-4' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
-                     Join Our Celebration!
-                  </h2>
-                  <FloralDivider />
+               <div className='relative z-10 max-w-2xl mx-auto'>
+                  <motion.div
+                     initial={{ opacity: 0, y: 40 }}
+                     whileInView={{ opacity: 1, y: 0 }}
+                     viewport={{ once: true }}
+                     transition={{ duration: 0.9 }}>
+                     {/* Tilt card */}
+                     <motion.div
+                        className='relative w-62 mx-auto mb-10 rounded-2xl overflow-hidden shadow-2xl'
+                        whileHover={{ rotateY: 8, rotateX: -4, scale: 1.04, boxShadow: "0 30px 80px rgba(168,80,112,0.3)" }}
+                        transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                        style={{ border: `4px solid rgba(255,255,255,0.8)`, transformStyle: "preserve-3d", perspective: 600 }}>
+                        <Image src='/assets/2.png' alt='Invitation card' width={450} height={500} className='w-full h-auto' />
+                        <div
+                           className='absolute inset-0'
+                           style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.1), transparent)" }}
+                        />
+                     </motion.div>
 
-                  <p className='mt-6 mb-2 text-lg leading-relaxed' style={{ color: C.mauve }}>
-                     Your presence is the greatest gift. We would be honoured to have you by our side as we welcome our little one into the
-                     world.
-                  </p>
-                  <p className='mb-10 italic text-sm opacity-70' style={{ color: C.mauve }}>
-                     Please let us know if you'll be attending, so we can make the best preparations for you.
-                  </p>
+                     <h2 className='text-5xl md:text-6xl mb-4' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
+                        Join Our Celebration!
+                     </h2>
+                     <FloralDivider />
 
-                  <motion.button
-                     id='rsvp-btn'
-                     whileHover={{ scale: 1.05, boxShadow: "0 20px 60px rgba(212,119,138,0.45)" }}
-                     whileTap={{ scale: 0.97 }}
-                     onClick={() => setIsRSVPOpen(true)}
-                     className='px-14 py-5 rounded-full text-white font-bold text-xl shadow-xl flex items-center gap-3 mx-auto transition-all'
-                     style={{ background: `linear-gradient(135deg, ${C.rose}, ${C.deepRose})` }}>
-                     <Heart size={20} fill='white' color='white' />
-                     Click here to RSVP
-                  </motion.button>
-
-                  <div className='mt-10 pt-8' style={{ borderTop: `1px solid ${C.blush}55` }}>
-                     <p className='text-sm flex items-center justify-center gap-2' style={{ color: `${C.mauve}88` }}>
-                        <Phone size={12} /> For any queries or warm wishes
+                     <p className='mt-6 mb-2 text-lg leading-relaxed' style={{ color: C.mauve }}>
+                        Your presence is the greatest gift. We would be honoured to have you by our side as we welcome our little one into
+                        the world.
                      </p>
-                     <a
-                        href='tel:+16393828797'
-                        className='text-base font-semibold mt-1 inline-block transition-all hover:underline'
-                        style={{ color: C.deepRose }}>
-                        +1 (639) 382-8797
-                     </a>
-                  </div>
-               </motion.div>
-            </div>
-         </section>
+                     <p className='mb-10 italic text-sm opacity-70' style={{ color: C.mauve }}>
+                        Please let us know if you'll be attending, so we can make the best preparations for you.
+                     </p>
 
-         {/* ══════════════════════════════════════
+                     <motion.button
+                        id='rsvp-btn'
+                        whileHover={{ scale: 1.05, boxShadow: "0 20px 60px rgba(212,119,138,0.45)" }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => setIsRSVPOpen(true)}
+                        className='px-14 py-5 rounded-full text-white font-bold text-xl shadow-xl flex items-center gap-3 mx-auto transition-all'
+                        style={{ background: `linear-gradient(135deg, ${C.rose}, ${C.deepRose})` }}>
+                        <Heart size={20} fill='white' color='white' />
+                        Click here to RSVP
+                     </motion.button>
+
+                     <div className='mt-10 pt-8' style={{ borderTop: `1px solid ${C.blush}55` }}>
+                        <p className='text-sm flex items-center justify-center gap-2' style={{ color: `${C.mauve}88` }}>
+                           <Phone size={12} /> For any queries or warm wishes
+                        </p>
+                        <a
+                           href='tel:+16393828797'
+                           className='text-base font-semibold mt-1 inline-block transition-all hover:underline'
+                           style={{ color: C.deepRose }}>
+                           +1 (639) 382-8797
+                        </a>
+                     </div>
+                  </motion.div>
+               </div>
+            </section>
+
+            {/* ══════════════════════════════════════
           FOOTER
       ══════════════════════════════════════ */}
-         <footer className='py-14 text-center relative overflow-hidden' style={{ background: C.charcoal }}>
-            <div
-               className='absolute inset-0 opacity-5'
-               style={{
-                  backgroundImage: `radial-gradient(${C.blush} 1px, transparent 1px)`,
-                  backgroundSize: "24px 24px",
-               }}
-            />
-            {/* Soft top glow */}
-            <div
-               className='absolute top-0 left-1/2 -translate-x-1/2 w-80 h-px'
-               style={{ background: `linear-gradient(90deg, transparent, ${C.rose}66, transparent)` }}
-            />
+            <footer className='py-14 text-center relative overflow-hidden' style={{ background: "transparent" }}>
+               <div
+                  className='absolute inset-0 opacity-5'
+                  style={{
+                     backgroundImage: `radial-gradient(${C.charcoal} 1px, transparent 1px)`,
+                     backgroundSize: "24px 24px",
+                  }}
+               />
+               {/* Soft top glow */}
+               <div
+                  className='absolute top-0 left-1/2 -translate-x-1/2 w-80 h-px'
+                  style={{ background: `linear-gradient(90deg, transparent, ${C.rose}66, transparent)` }}
+               />
 
-            <div className='relative z-10'>
-               <motion.p
-                  animate={{ opacity: [0.8, 1, 0.8] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className='text-4xl mb-2'
-                  style={{ fontFamily: "var(--font-dancing)", color: C.champagne }}>
-                  Khyati &amp; Vaibhav
-               </motion.p>
-               <div className='flex items-center justify-center gap-3 mt-2'>
-                  <div className='h-px w-10 opacity-20' style={{ background: C.champagne }} />
-                  <Heart size={12} fill={C.rose} style={{ color: C.rose }} />
-                  <div className='h-px w-10 opacity-20' style={{ background: C.champagne }} />
+               <div className='relative z-10'>
+                  <motion.p
+                     animate={{ opacity: [0.8, 1, 0.8] }}
+                     transition={{ duration: 3, repeat: Infinity }}
+                     className='text-4xl mb-2'
+                     style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
+                     Khyati &amp; Vaibhav
+                  </motion.p>
+                  <div className='flex items-center justify-center gap-3 mt-2'>
+                     <div className='h-px w-10 opacity-30' style={{ background: C.charcoal }} />
+                     <Heart size={12} fill={C.rose} style={{ color: C.rose }} />
+                     <div className='h-px w-10 opacity-30' style={{ background: C.charcoal }} />
+                  </div>
+                  <p className='mt-3 text-xs uppercase tracking-widest font-semibold' style={{ color: `${C.charcoal}90` }}>
+                     © 2026 &nbsp;·&nbsp; Crafted with Love &nbsp;·&nbsp; See you there! 🌸
+                  </p>
                </div>
-               <p className='mt-3 text-xs uppercase tracking-widest' style={{ color: `${C.champagne}50` }}>
-                  © 2026 &nbsp;·&nbsp; Crafted with Love &nbsp;·&nbsp; See you there! 🌸
-               </p>
-            </div>
-         </footer>
+            </footer>
+         </div>
 
          <RSVPModal isOpen={isRSVPOpen} onClose={() => setIsRSVPOpen(false)} />
       </main>
