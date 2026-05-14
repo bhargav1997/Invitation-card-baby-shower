@@ -1171,7 +1171,7 @@ export default function InvitationApp() {
             {/* ══════════════════════════════════════
           RSVP
       ══════════════════════════════════════ */}
-            <section id='rsvp' className='relative py-32 px-6 text-center overflow-hidden' style={{ background: "transparent" }}>
+            <section id='rsvp' className='relative py-14 px-6 text-center overflow-hidden' style={{ background: "transparent" }}>
                {/* Pulsing rings */}
                {[...Array(3)].map((_, i) => (
                   <motion.div
