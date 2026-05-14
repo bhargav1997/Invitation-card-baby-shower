@@ -31,17 +31,17 @@ import { cn } from "@/lib/utils";
 // Palette
 // ─────────────────────────────────────────
 const C = {
-   blush: "#F8CACA",     // Soft peach-pink matching the petals
-   rose: "#E5989B",      // Warm rosy pink matching the darker petals
-   deepRose: "#A6515A",  // Rich earthy rose for the script text
-   gold: "#C99A5C",      // Warm lantern gold
-   champagne: "#F4E3C5", // Soft lantern glow
-   orange: "#E27B58",    // Warm terracotta
+   blush: "#D2C5B3",     // Soft beige for subtle glows/borders
+   rose: "#9B7E58",      // Antique gold for icons and small caps (replaces pink)
+   deepRose: "#6E5034",  // Rich chestnut/bronze for script fonts
+   gold: "#B08D55",      // Classic gold
+   champagne: "#E8DCC8", // Very light warm beige
+   orange: "#A36841",    // Warm rust
    ivory: "#FDF8F3",
    ivoryDark: "#F5EDE2",
-   mauve: "#8B7D72",     // Warm taupe for subtext
-   sage: "#798A70",      // Soft leaf green
-   charcoal: "#3B332C",  // Deep earthy brown for main headings
+   mauve: "#5A544C",     // Deep readable taupe for subtext
+   sage: "#5A6D51",      // Muted forest green
+   charcoal: "#20251C",  // Extremely dark olive/forest green for main headings
    white: "#FFFFFF",
 };
 
@@ -780,23 +780,11 @@ export default function InvitationApp() {
             onClick={toggleMusic}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className='fixed bottom-24 right-6 z-40 w-12 h-12 flex items-center justify-center rounded-full shadow-2xl backdrop-blur-md'
+            className='fixed bottom-4 right-6 z-40 w-12 h-12 flex items-center justify-center rounded-full shadow-2xl backdrop-blur-md'
             style={{
                background: isPlaying ? `linear-gradient(135deg, ${C.sage}, #5a7d5e)` : `linear-gradient(135deg, ${C.rose}, ${C.deepRose})`,
             }}>
             {isPlaying ? <Volume2 size={20} color='#fff' /> : <VolumeX size={20} color='#fff' />}
-         </motion.button>
-
-         {/* Share Button */}
-         <motion.button
-            id='share-btn'
-            aria-label='Share invitation'
-            onClick={share}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className='fixed bottom-6 right-6 z-40 w-14 h-14 flex items-center justify-center rounded-full shadow-2xl'
-            style={{ background: `linear-gradient(135deg, ${C.rose}, ${C.deepRose})` }}>
-            <Share2 size={22} color='#fff' />
          </motion.button>
 
          {/* ══════════════════════════════════════
@@ -926,9 +914,9 @@ export default function InvitationApp() {
                onClick={() => document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" })}
                animate={{ y: [0, 10, 0] }}
                transition={{ duration: 2.5, repeat: Infinity }}>
-               <span className='text-[11px] uppercase font-bold tracking-[0.4em]' style={{ color: C.white }}>
+               {/* <span className='text-[11px] uppercase font-bold tracking-[0.4em]' style={{ color: C.white }}>
                   Scroll To Bottom
-               </span>
+               </span> */}
                <ChevronDown size={24} style={{ color: C.white }} strokeWidth={2} />
             </motion.div>
          </section>
@@ -952,7 +940,7 @@ export default function InvitationApp() {
             {/* ══════════════════════════════════════
           WELCOME
       ══════════════════════════════════════ */}
-            <section id='welcome' className='relative py-24 px-6 overflow-hidden' style={{ background: "transparent" }}>
+            <section id='welcome' className='relative py-18 px-6 overflow-hidden' style={{ background: "transparent" }}>
                <div
                   className='absolute top-0 left-0 w-64 h-64 opacity-15 pointer-events-none'
                   style={{ background: `radial-gradient(circle at top left, ${C.blush}, transparent 70%)` }}
@@ -1013,7 +1001,7 @@ export default function InvitationApp() {
             {/* ══════════════════════════════════════
           SAVE THE DATE
       ══════════════════════════════════════ */}
-            <section id='save-the-date' className='relative py-24 px-6 overflow-hidden' style={{ background: "transparent" }}>
+            <section id='save-the-date' className='relative py-18 px-6 overflow-hidden' style={{ background: "transparent" }}>
                <div
                   className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none'
                   style={{ background: `radial-gradient(circle, ${C.blush}20, transparent 70%)` }}
@@ -1034,44 +1022,28 @@ export default function InvitationApp() {
                      <FloralDivider />
                   </motion.div>
 
-                  <div className='grid md:grid-cols-3 gap-8 md:gap-4 items-center justify-center mt-8'>
-                     {/* DATE */}
+                  <div className='grid md:grid-cols-2 gap-8 md:gap-16 items-center justify-center mt-8 max-w-3xl mx-auto'>
+                     {/* DATE & DAY */}
                      <motion.div
                         initial={{ opacity: 0, scale: 0.85 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.9, delay: 0 }}
-                        className='flex flex-col items-center justify-center py-6 md:py-10'>
+                        className='flex flex-col items-center justify-center py-6 md:py-10 relative'>
+                        {/* Subtle vertical divider for desktop */}
+                        <div className='hidden md:block absolute -right-4 md:-right-8 top-1/2 -translate-y-1/2 w-px h-32' style={{ background: `linear-gradient(to bottom, transparent, ${C.blush}, transparent)` }} />
+                        
                         <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
                            <Calendar size={52} style={{ color: C.rose }} strokeWidth={1.5} />
                         </motion.div>
                         <p className='mt-5 text-4xl md:text-5xl text-center' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
                            June 21, 2026
                         </p>
-                        <p className='mt-3 text-xs uppercase tracking-widest opacity-60' style={{ color: C.mauve }}>
-                           Save the Date
-                        </p>
-                     </motion.div>
-
-                     {/* DAY */}
-                     <motion.div
-                        initial={{ opacity: 0, scale: 0.85 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.9, delay: 0.2 }}
-                        className='flex flex-col items-center justify-center py-6 md:py-10 relative'>
-                        {/* Subtle vertical dividers for desktop */}
-                        <div className='hidden md:block absolute -left-2 top-1/2 -translate-y-1/2 w-px h-32' style={{ background: `linear-gradient(to bottom, transparent, ${C.blush}, transparent)` }} />
-                        <div className='hidden md:block absolute -right-2 top-1/2 -translate-y-1/2 w-px h-32' style={{ background: `linear-gradient(to bottom, transparent, ${C.blush}, transparent)` }} />
-                        
-                        <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}>
-                           <Baby size={56} style={{ color: C.rose }} strokeWidth={1.5} />
-                        </motion.div>
-                        <p className='mt-5 text-5xl md:text-6xl text-center' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
+                        <p className='mt-2 text-2xl md:text-3xl text-center' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
                            Sunday
                         </p>
-                        <p className='mt-3 text-xs uppercase tracking-widest opacity-60 text-center' style={{ color: C.mauve }}>
-                           A day to remember
+                        <p className='mt-4 text-xs uppercase tracking-widest opacity-60 text-center' style={{ color: C.mauve }}>
+                           Save the Date
                         </p>
                      </motion.div>
 
@@ -1080,7 +1052,7 @@ export default function InvitationApp() {
                         initial={{ opacity: 0, scale: 0.85 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.9, delay: 0.4 }}
+                        transition={{ duration: 0.9, delay: 0.2 }}
                         className='flex flex-col items-center justify-center py-6 md:py-10'>
                         <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 4, repeat: Infinity, delay: 1, ease: "easeInOut" }}>
                            <Clock size={52} style={{ color: C.rose }} strokeWidth={1.5} />
@@ -1088,7 +1060,7 @@ export default function InvitationApp() {
                         <p className='mt-5 text-4xl md:text-5xl text-center' style={{ fontFamily: "var(--font-dancing)", color: C.deepRose }}>
                            4:00 PM <span className="text-3xl md:text-4xl">onwards</span>
                         </p>
-                        <p className='mt-3 text-xs uppercase tracking-widest opacity-60 text-center' style={{ color: C.mauve }}>
+                        <p className='mt-4 text-xs uppercase tracking-widest opacity-60 text-center' style={{ color: C.mauve }}>
                            Regina Time (CST)
                         </p>
                      </motion.div>
@@ -1144,7 +1116,7 @@ export default function InvitationApp() {
             {/* ══════════════════════════════════════
           WHAT TO EXPECT
       ══════════════════════════════════════ */}
-            {/* <section id='what-to-expect' className='relative py-24 px-6 overflow-hidden' style={{ background: C.ivoryDark }}>
+            {/* <section id='what-to-expect' className='relative py-18 px-6 overflow-hidden' style={{ background: C.ivoryDark }}>
             <div className='max-w-5xl mx-auto'>
                <motion.div
                   initial={{ opacity: 0, y: 30 }}
