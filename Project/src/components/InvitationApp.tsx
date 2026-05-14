@@ -602,6 +602,75 @@ export default function InvitationApp() {
 
    const audioRef = useRef<HTMLAudioElement>(null);
    const [isPlaying, setIsPlaying] = useState(false);
+   const lastInteractionTime = useRef<number>(0);
+   const isTouching = useRef<boolean>(false);
+
+   // Auto-scroll logic
+   useEffect(() => {
+      let animationFrameId: number;
+      const scrollSpeed = 0.5; // pixels per frame
+
+      const autoScroll = () => {
+         animationFrameId = requestAnimationFrame(autoScroll);
+         
+         // Stop if we hit bottom
+         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+            return;
+         }
+
+         // Pause scrolling if actively touching/clicking or recently interacted (within 1.5s)
+         if (isTouching.current || Date.now() - lastInteractionTime.current < 1500) {
+            return;
+         }
+
+         window.scrollBy({ top: scrollSpeed, behavior: "instant" });
+      };
+
+      // Add a slight delay before auto-scrolling starts
+      const timeoutId = setTimeout(() => {
+         animationFrameId = requestAnimationFrame(autoScroll);
+      }, 2000);
+
+      return () => {
+         clearTimeout(timeoutId);
+         cancelAnimationFrame(animationFrameId);
+      };
+   }, []);
+
+   // Pause auto-scroll on interaction
+   useEffect(() => {
+      const handleInteraction = () => {
+         lastInteractionTime.current = Date.now();
+      };
+      
+      const handleTouchStart = () => {
+         isTouching.current = true;
+         lastInteractionTime.current = Date.now();
+      };
+      
+      const handleTouchEnd = () => {
+         isTouching.current = false;
+         lastInteractionTime.current = Date.now();
+      };
+
+      window.addEventListener("wheel", handleInteraction, { passive: true });
+      window.addEventListener("touchstart", handleTouchStart, { passive: true });
+      window.addEventListener("touchend", handleTouchEnd, { passive: true });
+      window.addEventListener("mousedown", handleTouchStart);
+      window.addEventListener("mouseup", handleTouchEnd);
+      window.addEventListener("keydown", handleInteraction);
+      window.addEventListener("contextmenu", handleInteraction);
+
+      return () => {
+         window.removeEventListener("wheel", handleInteraction);
+         window.removeEventListener("touchstart", handleTouchStart);
+         window.removeEventListener("touchend", handleTouchEnd);
+         window.removeEventListener("mousedown", handleTouchStart);
+         window.removeEventListener("mouseup", handleTouchEnd);
+         window.removeEventListener("keydown", handleInteraction);
+         window.removeEventListener("contextmenu", handleInteraction);
+      };
+   }, []);
 
    useEffect(() => {
       // Attempt autoplay
@@ -853,7 +922,7 @@ export default function InvitationApp() {
             </motion.div>
 
             <motion.div
-               className='absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer'
+               className='absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer'
                onClick={() => document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" })}
                animate={{ y: [0, 10, 0] }}
                transition={{ duration: 2.5, repeat: Infinity }}>
