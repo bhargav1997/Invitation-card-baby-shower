@@ -728,7 +728,7 @@ export default function InvitationApp() {
    const heroWords = ["Baby", "Shower"];
 
    return (
-      <main className='relative overflow-x-hidden cursor-none' style={{ background: C.ivory, color: C.charcoal }}>
+      <main className='relative overflow-x-hidden cursor-none'>
          <ScrollProgress />
          {mounted && <CustomCursor />}
          {mounted && <FloatingHearts />}
@@ -794,7 +794,7 @@ export default function InvitationApp() {
             <div className='absolute inset-0 z-0'>
                <Image
                   src='/assets/hero_bg_new_2.png'
-                  alt='Floral background'
+                  alt='Hero background'
                   fill
                   priority
                   sizes='100vw'
@@ -923,19 +923,24 @@ export default function InvitationApp() {
 
          {/* <WaveDivider from='transparent' to={C.ivory} /> */}
 
-         <div
-            className='relative w-full'
-            style={{
-               backgroundImage: "url('/assets/hero_bg_new_2.png')",
-               backgroundSize: "cover",
-               backgroundPosition: "center top",
-               backgroundAttachment: "fixed",
-            }}>
-            {/* Light overlay to brighten the background image so text is readable */}
-            <div 
-               className='absolute inset-0 pointer-events-none' 
-               style={{ background: "rgba(255,255,255,0.75)" }} 
+         {/* ══════════════════════════════════════
+           FIXED BACKGROUND IMAGE (all sections below hero)
+           Position: fixed keeps it pinned to viewport on ALL browsers incl. iOS
+       ══════════════════════════════════════ */}
+         <div className='fixed inset-0 -z-10' aria-hidden='true'>
+            <Image
+               src='/assets/hero_bg_new_2.png'
+               alt=''
+               fill
+               sizes='100vw'
+               className='object-cover object-top'
+               priority
             />
+            {/* White overlay for readability */}
+            <div className='absolute inset-0' style={{ background: "rgba(255,255,255,0.78)" }} />
+         </div>
+
+         <div className='relative w-full'>
 
             {/* ══════════════════════════════════════
           WELCOME

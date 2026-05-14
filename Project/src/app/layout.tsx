@@ -73,7 +73,7 @@ export default function RootLayout({
 }>) {
    return (
       <html lang='en' className={`${playfair.variable} ${dancing.variable} ${inter.variable} h-full antialiased`}>
-         <body className='min-h-full flex flex-col'>{children}</body>
+         <body className='min-h-full flex flex-col bg-transparent'>{children}</body>
       </html>
    );
 }
