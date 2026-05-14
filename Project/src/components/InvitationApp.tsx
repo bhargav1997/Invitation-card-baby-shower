@@ -922,14 +922,14 @@ export default function InvitationApp() {
             </motion.div>
 
             <motion.div
-               className='absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer'
+               className='absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer'
                onClick={() => document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" })}
                animate={{ y: [0, 10, 0] }}
                transition={{ duration: 2.5, repeat: Infinity }}>
-               <span className='text-[12px] uppercase font-bold tracking-[0.4em]' style={{ color: C.white }}>
+               <span className='text-[11px] uppercase font-bold tracking-[0.4em]' style={{ color: C.white }}>
                   Scroll To Bottom
                </span>
-               <ChevronDown size={34} style={{ color: C.white }} strokeWidth={2} />
+               <ChevronDown size={24} style={{ color: C.white }} strokeWidth={2} />
             </motion.div>
          </section>
 
