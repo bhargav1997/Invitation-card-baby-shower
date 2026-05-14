@@ -19,6 +19,9 @@ import {
    Laugh,
    Gamepad2,
    Phone,
+   Video,
+   Volume2,
+   VolumeX,
 } from "lucide-react";
 import Image from "next/image";
 import confetti from "canvas-confetti";
@@ -42,11 +45,24 @@ const C = {
    white: "#FFFFFF",
 };
 
+// Uncomment one of the shape arrays below to test different SVG shapes! (Works best with OPTION 1 below)
+
+// ORIGINAL: Flower Petals
 const PETAL_SHAPES = [
    "M10,0 C14,3 16,8 12,14 C8,20 2,18 0,12 C-2,6 4,0 10,0",
    "M8,0 C14,2 18,10 14,16 C10,22 2,20 0,14 C-2,8 2,0 8,0",
    "M12,0 C18,4 20,12 16,18 C12,24 4,22 2,16 C0,10 6,0 12,0",
 ];
+
+// ALTERNATIVE: Stars
+// const PETAL_SHAPES = [
+//    "M12 2L15 8L22 9L17 14L18 21L12 17L6 21L7 14L2 9L9 8L12 2Z",
+// ];
+
+// ALTERNATIVE: Hearts
+// const PETAL_SHAPES = [
+//    "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z",
+// ];
 
 type FloatingEl = { left: string; duration: number; delay: number; shape: number; size: number; color: string };
 
@@ -584,6 +600,33 @@ export default function InvitationApp() {
    const [isRSVPOpen, setIsRSVPOpen] = useState(false);
    const [petals, setPetals] = useState<FloatingEl[]>([]);
 
+   const audioRef = useRef<HTMLAudioElement>(null);
+   const [isPlaying, setIsPlaying] = useState(false);
+
+   useEffect(() => {
+      // Attempt autoplay
+      const audio = audioRef.current;
+      if (audio) {
+         const playPromise = audio.play();
+         if (playPromise !== undefined) {
+            playPromise.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+         }
+      }
+   }, []);
+
+   const toggleMusic = () => {
+      const audio = audioRef.current;
+      if (audio) {
+         if (isPlaying) {
+            audio.pause();
+            setIsPlaying(false);
+         } else {
+            audio.play();
+            setIsPlaying(true);
+         }
+      }
+   };
+
    const { scrollYProgress } = useScroll();
    const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
    const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.92]);
@@ -632,12 +675,48 @@ export default function InvitationApp() {
                      animate={{ top: "108%", opacity: [0, 0.85, 0.6, 0], rotate: 360, x: Math.sin(i * 0.9) * 80 }}
                      transition={{ duration: p.duration, repeat: Infinity, ease: "linear", delay: p.delay }}
                      className='absolute'>
+                     {/* 
+                       Uncomment ONE of the options below to change the showering animation! 
+                       Make sure to comment out the others.
+                     */}
+
+                     {/* OPTION 1: Original Flower Petals */}
                      <svg width={p.size} height={p.size * 1.4} viewBox='0 0 16 22' fill={p.color} opacity='0.85'>
                         <path d={PETAL_SHAPES[p.shape]} />
                      </svg>
+
+                     {/* OPTION 2: Emojis (Teddy Bears) */}
+                     {/* <div style={{ fontSize: `${p.size * 1.5}px` }}>🧸</div> */}
+
+                     {/* OPTION 3: Emojis (Baby Bottles) */}
+                     {/* <div style={{ fontSize: `${p.size * 1.5}px` }}>🍼</div> */}
+
+                     {/* OPTION 4: Hearts (from Lucide Icons) */}
+                     {/* <Heart size={p.size * 1.5} color={p.color} fill={p.color} opacity={0.85} /> */}
+
+                     {/* OPTION 5: Sparkles (from Lucide Icons) */}
+                     {/* <Sparkles size={p.size * 1.5} color={p.color} opacity={0.85} /> */}
+
+                     {/* OPTION 6: Baby Icon (from Lucide Icons) */}
+                     {/* <Baby size={p.size * 1.5} color={p.color} opacity={0.85} /> */}
                   </motion.div>
                ))}
          </div>
+
+         {/* Background Music */}
+         <audio ref={audioRef} src='/assets/little_krishna_bg_music.mp3' loop />
+
+         <motion.button
+            aria-label='Toggle music'
+            onClick={toggleMusic}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className='fixed bottom-24 right-6 z-40 w-12 h-12 flex items-center justify-center rounded-full shadow-2xl backdrop-blur-md'
+            style={{
+               background: isPlaying ? `linear-gradient(135deg, ${C.sage}, #5a7d5e)` : `linear-gradient(135deg, ${C.rose}, ${C.deepRose})`,
+            }}>
+            {isPlaying ? <Volume2 size={20} color='#fff' /> : <VolumeX size={20} color='#fff' />}
+         </motion.button>
 
          {/* Share Button */}
          <motion.button
@@ -657,7 +736,7 @@ export default function InvitationApp() {
          <section id='hero' className='relative min-h-screen flex flex-col items-center justify-center overflow-hidden'>
             <div className='absolute inset-0 z-0'>
                <Image
-                  src='/assets/hero_bg_new.png'
+                  src='/assets/hero_bg_new_2.png'
                   alt='Floral background'
                   fill
                   priority
@@ -720,14 +799,8 @@ export default function InvitationApp() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 1.5, ease: "easeOut" }}
                   className='mb-8 relative w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full overflow-hidden shadow-[0_0_50px_rgba(201,148,58,0.3)] border-4 border-white/20'>
-                  <Image
-                     src='/assets/krishna_radha.png'
-                     alt='Bal Krishna and Radha'
-                     fill
-                     className='object-cover'
-                     sizes='(max-width: 768px) 256px, 320px'
-                     loading='eager'
-                  />
+                  <video src='/assets/radha_krishna_video_2.mp4' autoPlay loop muted playsInline className='w-full h-full object-cover' />
+
                   {/* Soft glow behind */}
                   <div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none' />
                </motion.div>
@@ -784,10 +857,10 @@ export default function InvitationApp() {
                onClick={() => document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" })}
                animate={{ y: [0, 10, 0] }}
                transition={{ duration: 2.5, repeat: Infinity }}>
-               <span className='text-[11px] uppercase font-bold tracking-[0.4em]' style={{ color: C.white }}>
+               <span className='text-[12px] uppercase font-bold tracking-[0.4em]' style={{ color: C.white }}>
                   Scroll To Bottom
                </span>
-               <ChevronDown size={22} style={{ color: C.white }} strokeWidth={3} />
+               <ChevronDown size={34} style={{ color: C.white }} strokeWidth={2} />
             </motion.div>
          </section>
 
@@ -1095,7 +1168,7 @@ export default function InvitationApp() {
                      className='px-14 py-5 rounded-full text-white font-bold text-xl shadow-xl flex items-center gap-3 mx-auto transition-all'
                      style={{ background: `linear-gradient(135deg, ${C.rose}, ${C.deepRose})` }}>
                      <Heart size={20} fill='white' color='white' />
-                     Confirm Your RSVP
+                     Click here to RSVP
                   </motion.button>
 
                   <div className='mt-10 pt-8' style={{ borderTop: `1px solid ${C.blush}55` }}>
