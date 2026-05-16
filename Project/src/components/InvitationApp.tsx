@@ -1240,9 +1240,64 @@ export default function InvitationApp() {
                         Your presence is the greatest gift. We would be honoured to have you by our side as we welcome our little one into
                         the world.
                      </p>
-                     <p className='mb-10 italic text-sm opacity-70' style={{ color: C.mauve }}>
-                        Please let us know if you'll be attending, so we can make the best preparations for you.
-                     </p>
+                     {/* ── Highlighted callout text ── */}
+                     <motion.div
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className='mb-6 mx-auto inline-flex items-center gap-3 px-6 py-3 rounded-2xl'
+                        style={{
+                           background: `linear-gradient(135deg, ${C.blush}55, ${C.champagne}44)`,
+                           border: `1.5px solid ${C.rose}55`,
+                           boxShadow: `0 0 24px ${C.rose}22, 0 4px 16px rgba(212,119,138,0.15)`,
+                        }}>
+                        <motion.span
+                           animate={{ scale: [1, 1.25, 1] }}
+                           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}>
+                           <Heart size={16} fill={C.rose} color={C.rose} />
+                        </motion.span>
+                        <p
+                           className='text-sm font-semibold leading-snug'
+                           style={{
+                              color: C.deepRose,
+                              fontFamily: "var(--font-playfair)",
+                              textShadow: `0 1px 6px ${C.rose}33`,
+                           }}>
+                           Please let us know if you&apos;ll be attending,
+                           <br />
+                           so we can make the best preparations for you.
+                        </p>
+                        <motion.span
+                           animate={{ scale: [1, 1.25, 1] }}
+                           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}>
+                           <Heart size={16} fill={C.rose} color={C.rose} />
+                        </motion.span>
+                     </motion.div>
+
+                     {/* ── Animated arrow pointing to RSVP button ── */}
+                     <motion.div
+                        className='flex flex-col items-center mb-5'
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5 }}>
+                        <motion.span
+                           className='text-[11px] uppercase tracking-[0.25em] font-bold mb-1'
+                           animate={{ opacity: [0.5, 1, 0.5] }}
+                           transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                           style={{ color: C.rose }}>
+                           tap below to confirm
+                        </motion.span>
+                        {[0, 0.18, 0.36].map((arrowDelay, idx) => (
+                           <motion.div
+                              key={idx}
+                              animate={{ y: [0, 6, 0], opacity: [0.3, 1, 0.3] }}
+                              transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: arrowDelay }}>
+                              <ChevronDown size={22} strokeWidth={2.5} style={{ color: C.rose }} />
+                           </motion.div>
+                        ))}
+                     </motion.div>
 
                      <motion.button
                         id='rsvp-btn'
